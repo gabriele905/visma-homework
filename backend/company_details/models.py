@@ -25,19 +25,17 @@ class CompanyDetail(models.Model):
             return
 
         for index, row in data.iterrows():
-            try:
-                HistoricalData.objects.get_or_create(
-                    company=self,
-                    date=index.strftime('%Y-%m-%d'),
-                    open=row['Open'],
-                    high=row['High'],
-                    low=row['Low'],
-                    close=row['Close'],
-                    adj_close=row['Adj Close'],
-                    volume=row['Volume']
-                )
-            #     bare
-            except:
-                continue
+            defaults = {
+                'open': row['Open'],
+                'high': row['High'],
+                'low': row['Low'],
+                'close': row['Close'],
+                'adj_close': row['Adj Close'],
+                'volume': row['Volume'],
+            }
+            HistoricalData.objects.update_or_create(
+                company=self, date=index.strftime('%Y-%m-%d'),
+                defaults=defaults
+            )
 
         return True
