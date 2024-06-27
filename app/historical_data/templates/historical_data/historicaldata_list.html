@@ -1,0 +1,48 @@
+<a href="{% url "company_detail_list" %}">COMPANIES LIST</a>
+
+<h1>Company Details</h1>
+<h2>Name: {{ company.name }}</h2>
+<h2>Symbol: {{ company.symbol }}</h2>
+
+<br>
+
+<a href="{% url "company_historical_data_sync" company.id %}">SYNC DATA</a>
+<br><br>
+
+<form class="form-historical-data-filtering" action="{% url 'company_historical_data_view' company.id %}" method="get">
+    <input name="date_from" type="date" value="{{ request.GET.date_from }}">
+    <input name="date_to" type="date" value="{{ request.GET.date_to }}">
+    <button class="button" type="submit" name="filter">FILTER</button>
+    <button class="button" type="submit" name="csv">DOWNLOAD CSV</button>
+</form>
+
+{% if object_list %}
+    <table border="1">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Adj close</th>
+            <th>Volume</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for historical_data in object_list %}
+            <tr>
+                <td>{{ historical_data.date }}</td>
+                <td>{{ historical_data.open }}</td>
+                <td>{{ historical_data.high }}</td>
+                <td>{{ historical_data.low }}</td>
+                <td>{{ historical_data.close }}</td>
+                <td>{{ historical_data.adj_close }}</td>
+                <td>{{ historical_data.volume }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% else %}
+    <h3>No data.</h3>
+{% endif %}

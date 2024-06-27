@@ -1,0 +1,53 @@
+<h1>Companies</h1>
+
+{% if messages %}
+   {% for message in messages %}
+   <div class={{ message.tags }}>{{ message }}</div>
+   {% endfor %}
+{% endif %}
+
+<form class="form-companies-search" action="{% url 'company_detail_list' %}" method="get">
+    <input name="symbol" type="text" value="{{ request.GET.symbol }}">
+    <button class="button" type="submit" name="SEARCH">SEARCH</button>
+</form>
+
+<a href="{% url "company_detail_new" %}">Create new company</a>
+
+<table border="1">
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Symbol</th>
+    <th colspan="3">Actions</th>
+    </tr>
+</thead>
+<tbody>
+    {% for company_detail in object_list %}
+    <tr>
+    <td>{{ company_detail.name }}</td>
+    <td>{{ company_detail.symbol }}</td>
+    <td><a href="{% url "company_historical_data_view" company_detail.id %}">view</a></td>
+    <td><a href="{% url "company_detail_edit" company_detail.id %}">edit</a></td>
+    <td><a href="{% url "company_detail_delete" company_detail.id %}">delete</a></td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
