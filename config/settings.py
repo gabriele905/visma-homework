@@ -48,8 +48,6 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = []
 
 LOCAL_APPS = [
-    # 'backend.company_details.apps.CompanyDetailsConfig',
-    # 'backend.historical_data.apps.HistoricalDataConfig',
     'backend.company_details',
     'backend.historical_data',
 ]
