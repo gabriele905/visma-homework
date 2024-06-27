@@ -1,9 +1,9 @@
 from django.db import models
 from django.urls import reverse
 
-from integrations.yahoo_finance import YahooFinanceClient
+from backend.integrations.yahoo_finance import YahooFinanceClient
 
-from historical_data.models import HistoricalData
+from backend.historical_data.models import HistoricalData
 
 
 class CompanyDetail(models.Model):
@@ -14,7 +14,7 @@ class CompanyDetail(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('company_detail_edit', kwargs={'company_id': self.pk})
+        return reverse('company_detail_edit', kwargs={'pk': self.pk})
 
     def download_data(self, date_from, date_to):
         yf_client = YahooFinanceClient(self.symbol)
@@ -36,6 +36,7 @@ class CompanyDetail(models.Model):
                     adj_close=row['Adj Close'],
                     volume=row['Volume']
                 )
+            #     bare
             except:
                 continue
 

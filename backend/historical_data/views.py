@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.views.generic import FormView, ListView
 from django.urls import reverse_lazy
 
-from company_details.models import CompanyDetail
+from backend.company_details.models import CompanyDetail
 
 from .forms import SyncHistoricalDataForm
 from .models import HistoricalData

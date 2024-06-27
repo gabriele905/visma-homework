@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CompanyDetailsConfig(AppConfig):
+class HistoricalDataConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'company_details'
+    name = 'backend.historical_data'

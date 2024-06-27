@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy, reverse
 
-from integrations.yahoo_finance import YahooFinanceClient
+from backend.integrations.yahoo_finance import YahooFinanceClient
 
 from .models import CompanyDetail
 
@@ -95,4 +95,4 @@ class CompanyDetailDeleteBySymbol(FormView):
             messages.error(self.request, 'Company not found')
             return redirect('company_detail_list')
 
-        return reverse('company_detail_delete', kwargs={'company_id': company.id})
+        return reverse('company_detail_delete', kwargs={'pk': company.id})

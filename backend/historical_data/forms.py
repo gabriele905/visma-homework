@@ -1,7 +1,5 @@
 from django import forms
 
-from company_details.models import CompanyDetail
-
 
 class SyncHistoricalDataForm(forms.Form):
     date_from = forms.DateField(
