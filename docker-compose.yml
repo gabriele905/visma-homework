@@ -50,6 +50,7 @@ services:
                    /venv/bin/python manage.py makemigrations &&
                    /venv/bin/python manage.py migrate &&
                    /venv/bin/python manage.py collectstatic &&
+                   /venv/bin/python manage.py initialize_data &&
                    /venv/bin/gunicorn config.wsgi --bind 0.0.0.0:8000"
     volumes:
       - static_volume:/static
