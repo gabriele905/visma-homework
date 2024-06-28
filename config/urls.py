@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from backend.company_details.views import CompanyDetailList
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', CompanyDetailList.as_view(), name='company_detail_list'),
     path('company_details/', include('backend.company_details.urls')),
     path('historical_data/', include('backend.historical_data.urls')),
 ]
