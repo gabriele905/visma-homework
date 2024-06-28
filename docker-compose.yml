@@ -23,6 +23,7 @@ services:
       - ./:/code
     depends_on:
       - rabbitmq
+      - postgres_db
 
   celery-beat:
     build: ./
@@ -58,6 +59,21 @@ services:
     restart: "on-failure"
     env_file:
       - .env
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - ${DB_PORT}
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+
 volumes:
- static_volume:
- media_volume:
+  static_volume:
+  media_volume:
+  postgres_data:
