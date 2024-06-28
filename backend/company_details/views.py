@@ -23,7 +23,7 @@ class CompanyDetailList(ListView):
         if symbol:
             f &= Q(symbol__contains=symbol.upper())
 
-        return qs.filter(f).order_by('-symbol')
+        return qs.filter(f).order_by('symbol')
 
 
 class CompanyDetailView(DetailView):
