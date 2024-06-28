@@ -39,3 +39,20 @@ class CompanyDetail(models.Model):
             )
 
         return True
+
+    @staticmethod
+    def validate_create_update_form(form):
+        symbol = form.cleaned_data['symbol'].upper()
+
+        if CompanyDetail.objects.filter(symbol=symbol).exclude(id=form.instance.id).exists():
+            form.add_error('symbol', 'Company with this symbol already exists')
+            return False
+
+        yfinance_client = YahooFinanceClient(symbol)
+        if not yfinance_client.validate_ticker():
+            form.add_error('symbol', 'Symbol is not valid')
+            return False
+
+        form.instance.symbol = symbol
+
+        return True
