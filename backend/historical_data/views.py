@@ -39,19 +39,6 @@ class HistoricalDataList(ListView):
 
         return context
 
-    def export_csv(self):
-        response = HttpResponse(
-            content_type="text/csv",
-            headers={"Content-Disposition": 'attachment; filename="file.csv"'},
-        )
-
-        writer = csv.writer(response)
-
-        for obj in self.get_queryset():
-            writer.writerow([obj.date, obj.open, obj.high, obj.low, obj.close, obj.adj_close, obj.volume])
-
-        return response
-
     def get(self, request, *args, **kwargs):
         if 'csv' in request.GET:
             return self.generate_csv()
