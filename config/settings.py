@@ -144,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CELERY_BEAT_SCHEDULE = {
     'download_daily_data': {
         'task': 'download_daily_data',
-        'schedule': crontab(minute='*', app='worker'),
+        'schedule': crontab(hour='2', minute='0', app='worker'),
         'options': {'queue': 'celery'}
     },
 }
